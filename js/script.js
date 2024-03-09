@@ -3,6 +3,7 @@
 const btnNavEl = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header");
 const allLinks = document.querySelectorAll("a:link");
+const sectionHeroEl = document.querySelector(".section-hero");
 
 ///////////////////////////////////////////////////////////
 // Make mobile navigation work
@@ -34,3 +35,25 @@ allLinks.forEach((link) => {
       headerEl.classList.toggle("nav-open");
   });
 });
+
+///////////////////////////////////////////////////////////
+// Sticky navigation
+
+const obs = new IntersectionObserver(
+  (entries) => {
+    const ent = entries[0];
+    if (!ent.isIntersecting) {
+      document.body.classList.add("sticky");
+    }
+
+    if (ent.isIntersecting) {
+      document.body.classList.remove("sticky");
+    }
+  },
+  {
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
+  }
+);
+obs.observe(sectionHeroEl);
